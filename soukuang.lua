@@ -1,14 +1,21 @@
+--原本是用turtle.compare()类型函数来比较乌龟物品栏里的黑名单，看到mod好像更新了有了新的函数
+--turtle.inspect()类型，这样就不用在乌龟物品栏里放方块作为黑名单了，改成了一个方块ID的黑名单列表。
+--很好，朕心甚慰。
 term.clear()
 term.setCursorPos(1,1)
-for i=1,4 do
-	turtle.select(i)
-	while turtle.getItemCount(i)==0 do
-		print("Make a Blacklist first!")
-		print("Press any key to continue.")
+	while turtle.getFuelLevel()<1000 do
+		print("low fuel!")
+		print("fuel:",turtle.getFuelLevel())
+		print("refuel and press any key to continue.")
 		os.pullEvent("key")
+		for i=1,16 do
+			turtle.select(i)
+			turtle.refuel()
+		end
 	end
 	turtle.select(1)
-end
+
+local bl={"minecraft:dirt","minecraft:sand","minecraft:stone","minecraft:cobblestone","minecraft:grass"}
 local wcx=0
 local cPos=505050
 local pos={}
@@ -117,24 +124,25 @@ local function zhuan(cx)
 end
 --对比函数
 function notCompare(d)
-	local t={true,true,true,true}
-	for i=1,4 do
-		turtle.select(i)
-		if d==1 then
-			t[i]=turtle.compare()
-		end
-		if d==2 then
-			t[i]=turtle.compareUp()
-		end
-		if d==3 then
-			t[i]=turtle.compareDown()
+	local fuhe=0
+	if d==1 then
+		sucess,id=turtle.inspect()
+	elseif d==2 then
+		sucess,id=turtle.inspectUp()
+	elseif d==3 then
+		sucess,id=turtle.inspectDown()
+	else
+		print("turtle error")
+	end
+	for key,value in ipairs(bl) do
+		if value==id.name then
+			fuhe=fuhe+1
 		end
 	end
-	turtle.select(1)
-	if not (t[1] or t[2] or t[3] or t[4]) then
-		return true
+	if fuhe>0 then
+		return false
 	else
-		return false 
+		return true
 	end
 end
 --搜矿函数
