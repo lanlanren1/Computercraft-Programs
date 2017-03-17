@@ -89,20 +89,20 @@ local function fangtu()
 	print("press any key to continue...")
 	os.pullEvent("key")
 	turtle.select(1)
-	for i=1,8 do
+	for i=1,28 do
 		local sucess,data= turtle.inspectDown()
 		
 		if not ((data.name=="minecraft:dirt") or (data.name=="minecraft:grass")) then
 			turtle.digDown()
 			turtle.placeDown()
 		end
-		if (i==4 or i==5 or i==8) then
+		if (i==14 or i==15 or i==20) then
 			turtle.turnRight()
 		end
 		go(1)
 		go(1)
 		go(1)
-		if i==8 then
+		if i==28 then
 			turtle.turnRight()
 		end
 	end
@@ -110,15 +110,15 @@ end
 
 --模块2
 local function qingli()
-	for i=1,8 do
+	for i=1,28 do
 		turtle.digDown()
-		if (i==4 or i==5 or i==8) then
+		if (i==14 or i==15 or i==28) then
 			turtle.turnRight()
 		end
 		go(1)
 		go(1)
 		go(1)
-		if i==8 then
+		if i==20 then
 			turtle.turnRight()
 		end
 	end
@@ -126,30 +126,30 @@ end
 
 --模块3
 local function qiaofu()
-	print("4 saplings in slot 1")
+	print("28 saplings in slot 1")
 	print("press any key to continue...")
 	os.pullEvent("key")
-	for i=1,8 do
-		turtle.turnLeft()
-		local sucess,data= turtle.inspectDown()
+	for i=1,28 do
+		if i~=15 then
+			turtle.turnLeft()
+		end
+		local sucess,data= turtle.inspect()
 		if data.name=="minecraft:log" then
 			famu()
-		elseif not turtle.detect() then
+		end
+		if not turtle.detect() then
 			turtle.place()
 		end
 		turtle.turnRight()
-		if (i==4 or i==8) then
+		if (i==14 or i==28) then
 			turtle.turnRight()
-		end
-		if not (i==4 or i==8) then
-			go(1)
-			go(1)
-			go(1)
 		else
 			go(1)
-			turtle.turnRight()
-		end			
+			go(1)
+		end	
+		go(1)
 	end
+	turtle.turnRight()
 end
 
 --运行
