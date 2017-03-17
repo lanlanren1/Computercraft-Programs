@@ -15,7 +15,7 @@ term.setCursorPos(1,1)
 	end
 	turtle.select(1)
 
-local bl={"minecraft:dirt","minecraft:sand","minecraft:stone","minecraft:cobblestone","minecraft:grass"}
+local bl={"minecraft:dirt","minecraft:sand","minecraft:stone","minecraft:cobblestone","minecraft:grass","minecraft:netherrack"}
 local wcx=0
 local cPos=505050
 local pos={}
